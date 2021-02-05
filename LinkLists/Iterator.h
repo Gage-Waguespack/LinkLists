@@ -15,46 +15,46 @@ public:
 	T operator * ();
 
 private:
-	Node<T>* current;
+	Node<T>* m_current;
 };
 
 template<typename T>
 inline Iterator<T>::Iterator()
 {
-	
+
 }
 
 template<typename T>
 inline Iterator<T>::Iterator(Node<T>* node)
 {
-
+	m_current = node;
 }
 
 template<typename T>
 inline Iterator<T> Iterator<T>::operator++()
 {
-
+	m_current = Node.previous;
 	return Iterator<T>();
 }
 
 template<typename T>
 inline Iterator<T> Iterator<T>::operator--()
 {
-	
+	m_current = Node.previous;
 	return Iterator<T>();
 }
 
 template<typename T>
 inline const bool Iterator<T>::operator==(const Iterator<T>& iter)
 {
-
+	m_current = iter;
 	return false;
 }
 
 template<typename T>
 inline const bool Iterator<T>::operator!=(const Iterator<T>& iter)
 {
-
+	m_current != iter;
 	return false;
 }
 
