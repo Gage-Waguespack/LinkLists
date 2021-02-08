@@ -70,5 +70,5 @@ inline const bool Iterator<T>::operator!=(const Iterator<T>& iter)
 template<typename T>
 inline T Iterator<T>::operator*()
 {
-	return *current.data;
+	return T();
 }
