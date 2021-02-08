@@ -79,7 +79,7 @@ inline Iterator<T> List<T>::end()
 template<typename T>
 inline bool List<T>::contains(const T& object)
 {
-
+	
 	return false;
 }
 
@@ -105,7 +105,10 @@ inline void List<T>::pushBack(const T& value)
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
-	
+	Node* temp = newNode(value);
+	temp->next = *m_first;
+	(*m_first)->previous = temp;
+	(*m_first) = temp;
 	return false;
 }
 
@@ -113,7 +116,10 @@ inline bool List<T>::insert(const T& value, int index)
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
-
+	Node* temp = newNode(value);
+	temp->next = *m_first;
+	(*m_first)->m_current = temp;
+	(*m_first) = temp;
 	return false;
 }
 
