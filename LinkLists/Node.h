@@ -11,14 +11,14 @@ public:
 	T data;
 };
 
+//base constructor
 template<typename T>
 inline Node<T>::Node()
 {
-	previous = T*;
-	data = T*;
-	next = T*;
+
 }
 
+//overloaded constructor that takes in a valule to set as the node
 template<typename T>
 inline Node<T>::Node(T value)
 {
