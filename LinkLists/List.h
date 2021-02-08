@@ -87,21 +87,25 @@ inline bool List<T>::contains(const T& object)
 template<typename T>
 inline void List<T>::pushFront(const T& value)
 {
-
+	value.previous = nullptr;
+	value.next = m_first;
+	m_first = value;
 }
 
 //adds a new node to the end of the list
 template<typename T>
 inline void List<T>::pushBack(const T& value)
 {
-
+	value.previous = m_last;
+	value.next = nullptr;
+	m_last = value;
 }
 
 //adds a new node at the given index
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
-
+	
 	return false;
 }
 
@@ -148,8 +152,14 @@ inline bool List<T>::getData(Iterator<T>& iter, int index)
 template<typename T>
 inline int List<T>::getLength() const
 {
-
-	return 0;
+	int i = m_first; 
+	int j = 1;
+	if (i < m_last) 
+	{ 
+		i++; 
+		j++;
+	}
+	return j;
 }
 
 //overloads "=" to set a list to be able to set two seperate lists equal to eachother
@@ -160,7 +170,7 @@ inline List<T>& List<T>::operator=(const List<T>& otherList)
 	// TODO: insert return statement here
 }
 
-//sorts the list utilizing the bubble sort method
+//sorts the list 
 template<typename T>
 inline void List<T>::sort()
 {
