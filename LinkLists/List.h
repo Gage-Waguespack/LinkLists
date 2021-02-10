@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include "Iterator.h"
 
 template<typename T>
@@ -35,35 +36,51 @@ private:
 template<typename T>
 inline List<T>::List()
 {
-
+	m_first = new Node<T>();
+	m_last = m_first;
+	m_nodeCount = 0;
 }
 
 //An overload of the base constructor that takes in a list
 template<typename T>
-inline List<T>::List(List<T>&)
+inline List<T>::List(List<T>& list)
 {
-
+	this = list;
 }
 
 //A destructor that destroys the list and all of the things it points to
 template<typename T>
 inline List<T>::~List()
 {
-
+	destroy();
+	delete m_first; 
+	delete m_last;
 }
 
 //A function that should destroys all the nodes in the list
 template<typename T>
 inline void List<T>::destroy()
 {
-
+	Iterator<T> iter = Iterator<T>(m_first);
+	for (int i = 0; i < m_nodeCount; i++)
+	{
+		if (iter.m_current->previous)
+			delete iter.m_current->previous;
+		if (!iter.m_current->next)
+			delete iter.m_current;
+		if (iter.m_current != m_last)
+			iter++;
+	}
+	m_first = new Node<T>();
+	m_last = m_first;
+	m_nodeCount = 0;
 }
 
 //returns an iterator pointing to the first node in the list
 template<typename T>
 inline Iterator<T> List<T>::begin()
 {
-
+	Iterator<T>()->m_first;
 	return Iterator<T>();
 }
 
@@ -71,7 +88,7 @@ inline Iterator<T> List<T>::begin()
 template<typename T>
 inline Iterator<T> List<T>::end()
 {
-
+	Iterator<T>()->m_last;
 	return Iterator<T>();
 }
 
@@ -79,7 +96,13 @@ inline Iterator<T> List<T>::end()
 template<typename T>
 inline bool List<T>::contains(const T& object)
 {
-	
+	List<T>* node = m_first;
+	while (node != nullptr) {
+		if (node->data != object)
+			node = node->next;
+		else
+			return true;
+	}
 	return false;
 }
 
@@ -87,6 +110,13 @@ inline bool List<T>::contains(const T& object)
 template<typename T>
 inline void List<T>::pushFront(const T& value)
 {
+	if (value.previous = nullptr || value.next = nullptr)
+	{
+		m_first = value;
+		m_last = value;
+		value.previous = nullptr;
+		value.next = nullptr;
+	}
 	value.previous = nullptr;
 	value.next = m_first;
 	m_first = value;
@@ -127,15 +157,19 @@ inline bool List<T>::remove(const T& value)
 template<typename T>
 inline const void List<T>::print()
 {
-
-	return void();
+	for (Iterator<int> iter = begin(); iter != end(); ++iter)
+	{
+		std::cout << *iter << std::endl;
+	}
 }
 
 //set the default values for the first node pointer, the last node pointer, and the node count
 template<typename T>
 inline void List<T>::initialize()
 {
-
+	m_first.previous = nullptr;
+	m_last.next = nullptr;
+	getLength();
 }
 
 //returns whether or not the list has any nodes in it
@@ -158,11 +192,9 @@ inline bool List<T>::getData(Iterator<T>& iter, int index)
 template<typename T>
 inline int List<T>::getLength() const
 {
-	int i = m_first; 
-	int j = 1;
-	if (i < m_last) 
-	{ 
-		i++; 
+	int j = 0;
+	for (Iterator i = m_first; i < m_last; i++)
+	{
 		j++;
 	}
 	return j;
@@ -180,5 +212,5 @@ inline List<T>& List<T>::operator=(const List<T>& otherList)
 template<typename T>
 inline void List<T>::sort()
 {
-
+	
 }
