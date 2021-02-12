@@ -176,16 +176,38 @@ inline void List<T>::initialize()
 template<typename T>
 inline bool List<T>::isEmpty() const
 {
-
-	return false;
+	bool tempBool;
+	if (m_first < begin)
+	{
+		tempBool = true;
+	}
+	else
+	{
+		tempBool = false;
+	}
+	
+	return tempBool;
 }
 
 //sets the given iterator to point to a node at the given index
 template<typename T>
 inline bool List<T>::getData(Iterator<T>& iter, int index)
 {
+	bool tempBool = false;
+	auto iter = List.begin();
 
-	return false;
+	while (iter != List.end())
+	{
+		iter++;
+
+		if (iter = index)
+		{
+			tempBool = true;
+			iter++;
+		}
+	}
+
+	return tempBool;
 }
 
 //returns the amount of nodes in the list
