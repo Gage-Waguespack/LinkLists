@@ -147,7 +147,7 @@ template<typename T>
 inline bool List<T>::remove(const T& value)
 {
 	Node* temp = newNode(value);
-	temp->next = *m_first;
+	temp->next = m_first;
 	(*m_first)->m_current = temp;
 	(*m_first) = temp;
 	return false;
