@@ -135,7 +135,7 @@ inline void List<T>::pushBack(const T& value)
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
-	Node* temp = newNode(value);
+	Node* temp = new Node<T>(value);
 	temp->next = *m_first;
 	(*m_first)->previous = temp;
 	(*m_first) = temp;
@@ -146,8 +146,8 @@ inline bool List<T>::insert(const T& value, int index)
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
-	Node* temp = newNode(value);
-	temp->next = m_first;
+	Node* temp = new Node<T>(value);
+	temp->next = *m_first;
 	(*m_first)->m_current = temp;
 	(*m_first) = temp;
 	return false;
