@@ -11,8 +11,8 @@ public:
 	List(List<T>&);
 	~List();
 	void destroy();
-	Iterator<T> begin();
-	Iterator<T> end();
+	Iterator<T> begin() const;
+	Iterator<T> end() const;
 	bool contains(const T& object);
 	void pushFront(const T& value);
 	void pushBack(const T& value);
@@ -27,18 +27,18 @@ public:
 	void sort();
 
 private:
-	Node<T> m_first;
-	Node<T> m_last;
-	int m_nodeCount;
+	Node<T>* m_first;
+	Node<T>* m_last;
+	int m_nodeCount = 0;
 };
 
 //The base constructor
 template<typename T>
 inline List<T>::List()
 {
-	m_first = new Node<T>();
-	m_last = m_first;
-	m_nodeCount = 0;
+	//m_first = new Node<T>();
+	//m_last = m_first;
+	//m_nodeCount = 0;
 }
 
 //An overload of the base constructor that takes in a list
@@ -78,18 +78,16 @@ inline void List<T>::destroy()
 
 //returns an iterator pointing to the first node in the list
 template<typename T>
-inline Iterator<T> List<T>::begin()
+inline Iterator<T> List<T>::begin() const
 {
-	Iterator<T>()->m_first;
-	return Iterator<T>();
+	return Iterator<T>(m_first);
 }
 
 //returns the next item after the last node in the list
 template<typename T>
-inline Iterator<T> List<T>::end()
+inline Iterator<T> List<T>::end() const
 {
-	Iterator<T>()->m_last;
-	return Iterator<T>();
+	return Iterator<T>(m_last);
 }
 
 //checks to see if the given item is in the list
@@ -110,25 +108,39 @@ inline bool List<T>::contains(const T& object)
 template<typename T>
 inline void List<T>::pushFront(const T& value)
 {
-	if (value.previous = nullptr || value.next = nullptr)
-	{
-		m_first = value;
-		m_last = value;
-		value.previous = nullptr;
-		value.next = nullptr;
-	}
-	value.previous = nullptr;
-	value.next = m_first;
-	m_first = value;
+	//if (value->previous = nullptr || value->next != nullptr)
+	//{
+	//	m_first = value;
+	//	m_last = value;
+	//	value->previous = nullptr;
+	//	value->next = nullptr;
+	//}
+	//value->previous = nullptr;
+	//value->next = m_first;
+	//m_first = value;
+
+	Node<T>* tempNode = new Node<T>(value);
+	m_first->previous = tempNode;
+	tempNode->next = new Node<T>(m_first->data);
+	tempNode->previous = nullptr;
+
+	m_nodeCount++;
 }
 
 //adds a new node to the end of the list
 template<typename T>
 inline void List<T>::pushBack(const T& value)
 {
-	value.previous = m_last;
-	value.next = nullptr;
-	m_last = value;
+	//value->previous = m_last;
+	//value->next = nullptr;
+	//m_last = value;
+
+	Node<T>* tempNode = new Node<T>(value);
+	m_last->next = tempNode;
+	tempNode->previous = new Node<T>(m_last->data);
+	tempNode->next = nullptr;
+
+	m_nodeCount++;
 }
 
 //adds a new node at the given index

@@ -22,7 +22,6 @@ private:
 template<typename T>
 inline Iterator<T>::Iterator()
 {
-
 }
 
 //overloaded constructor that takes in a node (to point to)
@@ -36,34 +35,30 @@ inline Iterator<T>::Iterator(Node<T>* node)
 template<typename T>
 inline Iterator<T> Iterator<T>::operator++()
 {
-	if (*m_current.next)
-	m_current = *m_current.next;
-	return Iterator<T>(m_current);
+	m_current = m_current->next;
+	return *this;
 }
 
 //overloads "--" operator to move to the previous node
 template<typename T>
 inline Iterator<T> Iterator<T>::operator--()
 {
-	if(Node.previous)
-	m_current = Node.previous;
-	return Iterator<T>(m_current);
+	m_current = m_current->previous;
+	return *this;
 }
 
 //overloads the "==" operator to set the iterator equals to a specific node
 template<typename T>
 inline const bool Iterator<T>::operator==(const Iterator<T>& iter)
 {
-	m_current = iter;
-	return false;
+	return iter.m_current;
 }
 
 //overloads the "!=" operator to make sure the iterator cannot equal a specified node (also used to check in if statements)
 template<typename T>
 inline const bool Iterator<T>::operator!=(const Iterator<T>& iter)
 {
-	m_current != iter;
-	return false;
+	return iter.m_current != m_current;
 }
 
 //overloads the "*" operator to de-reference the iterator
